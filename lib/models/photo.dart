@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-class Photo {  
-
+class Photo {
   String id;
   String? description;
   String? regularUrl;
@@ -17,14 +16,13 @@ class Photo {
   String? downloadLocation; //Optional
   Color? color; //Optional
 
-  Photo(this.id,this.fullUrl);
+  Photo(this.id, this.fullUrl);
 
-  factory Photo.fromJson(Map<String,dynamic>  json) { 
-  
-    print(json);
-
-    return Photo(json["id"],json["urls"]["full"]);
+  factory Photo.fromJson(Map<String, dynamic> json) {
+    return Photo(json["id"], json["urls"]["full"]);
   }
-
 }
 
+List<Photo> allFromJson(List<dynamic> list) {
+  return list.map((item) => Photo(item["id"], item["urls"]["full"])).toList();
+}
