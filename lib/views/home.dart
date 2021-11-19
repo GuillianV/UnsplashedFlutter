@@ -3,6 +3,11 @@ import 'package:unsplashed/models/photo.dart';
 import 'package:unsplashed/models/http';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
+import 'package:dio/dio.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'dart:typed_data';
+
+import 'package:unsplashed/widgets/infinite_grid_view.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -55,40 +60,7 @@ class MainPageState extends State<MainPage> {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Center(
-          child: GridView.builder(
-              itemCount: _photos.length,
-              // Create a grid with 2 columns. If you change the scrollDirection to
-              // horizontal, this produces 2 rows.
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
-              // Generate 100 widgets that display their index in the List.
-
-              itemBuilder: (context, index) {
-                if (index == _photos.length - _nextPageThreshold) {
-                  fetchPhotos();
-                }
-                final Photo photo = _photos[index];
-
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Center(
-                      child: CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        width: width,
-                        height: height,
-                        imageUrl: photo.fullUrl,
-                        placeholder: (context, url) =>
-                            BlurHash(hash: photo.blurHash),
-                        errorWidget: (context, url, error) =>
-                            new Icon(Icons.error),
-                      ),
-                    ),
-                  ),
-                );
-              })),
+      body: Center(child: InfiniteGridView()),
     );
   }
 }
