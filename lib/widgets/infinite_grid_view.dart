@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unsplashed/models/photo.dart';
-import 'package:unsplashed/models/http';
+import 'package:unsplashed/models/http.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:dio/dio.dart';
